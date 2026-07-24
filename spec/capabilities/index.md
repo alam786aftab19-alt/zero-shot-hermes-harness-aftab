@@ -1,38 +1,13 @@
 # Capabilities Index
 
-> **Boilerplate status:** The spec-writer sub-agent creates one file per capability in this directory. Each file describes exactly one discrete thing the agent can do.
+This agent is composed of the following discrete capabilities:
 
----
+1. [CSV Upload](csv_upload.md) – Accept and validate multiple CSV files.
+2. [MsSQL Connection](mssql_connection.md) – Connect to a large MsSQL database in read‑only mode with connection pooling.
+3. [SQL Generation](sql_generation.md) – Translate natural language into safe, parameterized SQL.
+4. [Query Validation](query_validation.md) – Ensure generated SQL is read‑only, within row limits, and does not mutate data.
+5. [Cache Lookup](query_validation.md#caching) – Reuse prior results to reduce DB load (integrated in validation).
+6. [Chart Generation](chart_generation.md) – Convert tabular results into Plotly chart specifications.
+7. [Audit Logging](audit_logging.md) – Record every question, action, and outcome for compliance.
 
-## What Is a Capability?
-
-A capability is a single, discrete action or behavior the agent performs. Examples:
-- "Search the web for companies matching criteria X"
-- "Draft a personalized email given a lead profile"
-- "Send a Slack notification when a threshold is crossed"
-
-## Capabilities in This Project
-
-<!-- FILL IN: List capabilities here as they are defined. Each entry links to its spec file (no number prefix). -->
-
-| Capability | File |
-|-----------|------|
-| <!-- name --> | [name.md](name.md) |
-
-## How to Add a New Capability
-
-Run `/zero-shot-build [description]` on the existing spec. The spec-writer sub-agent will:
-1. Create a new file in this directory (`<name>.md`, no number prefix)
-2. Update this index
-3. Flag any dependencies on existing capabilities
-4. Self-review that it fits the architecture and data model before returning
-
-## Capability File Template
-
-Each capability file should answer:
-- **What it does** (one sentence)
-- **Inputs** (what data it receives)
-- **Outputs** (what it produces)
-- **External calls** (APIs, LLMs, databases it touches)
-- **Error cases** (what can go wrong and how it's handled)
-- **Success criteria** (how we test it)
+All capabilities are orchestrated by a LangGraph state machine (see `agent.md`).
