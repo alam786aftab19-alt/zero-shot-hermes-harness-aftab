@@ -29,6 +29,7 @@ class RunRow(Base):
     status: Mapped[str] = mapped_column(Text, nullable=False, default="pending")
     input_text: Mapped[str] = mapped_column(Text, nullable=False, default="")
     instruction: Mapped[str] = mapped_column(Text, nullable=False, default="")
+    dataset_id: Mapped[str | None] = mapped_column(Text, nullable=True)
     output_text: Mapped[str | None] = mapped_column(Text, nullable=True)
     provider: Mapped[str | None] = mapped_column(Text, nullable=True)
     model: Mapped[str | None] = mapped_column(Text, nullable=True)

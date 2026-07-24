@@ -1,59 +1,342 @@
-/* Zero-build baseline styles — replace alongside the capability slot. */
+/* UP Police Data Analyst - Frontend Styles */
+
 :root {
-  --bg: #0f1115;
-  --card: #171a21;
-  --text: #e8eaf0;
-  --muted: #9aa3b2;
-  --accent: #5b8def;
-  --error: #e5534b;
-  --ok: #3fb950;
-  --radius: 10px;
-  color-scheme: dark;
+  --primary: #1a365d; /* UP Police blue */
+  --secondary: #f0f0f0;
+  --accent-green: #2f855a;
+  --accent-red: #c53030;
+  --text: #333;
+  --bg: #fff;
+  --card-bg: #fff;
+  --border: #ddd;
+  --radius: 8px;
 }
+
 * { box-sizing: border-box; }
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--secondary);
   color: var(--text);
   line-height: 1.5;
 }
-.shell { max-width: 760px; margin: 0 auto; padding: 24px 16px 48px; }
-.topbar { display: flex; align-items: center; justify-content: space-between; }
-.topbar h1 { font-size: 1.4rem; margin: 0; }
-.badge {
-  font-size: 0.75rem; padding: 3px 10px; border-radius: 999px;
-  background: #22304d; color: var(--accent); border: 1px solid #2d3f63;
+
+.shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
-.badge.stub { background: #4d2222; color: var(--error); border-color: #633030; }
+
+/* Topbar */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: var(--primary);
+}
+
+/* Buttons */
+.btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: opacity 0.2s;
+}
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.btn.primary {
+  background: var(--primary);
+  color: white;
+}
+.btn.primary:hover:not(:disabled) {
+  opacity: 0.9;
+}
+.btn.stub {
+  background: #ccc;
+  color: #666;
+  cursor: default;
+}
+.btn.copy {
+  background: var(--secondary);
+  color: var(--text);
+  border: 1px solid var(--border);
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+.btn.copy:hover {
+  background: #e0e0e0;
+}
+
+/* Cards */
 .card {
-  background: var(--card); border-radius: var(--radius);
-  padding: 20px; margin-top: 20px; border: 1px solid #232838;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
-.card h2 { margin-top: 0; font-size: 1.1rem; }
-.hint { color: var(--muted); font-size: 0.9rem; margin-top: -6px; }
-label { display: block; margin: 14px 0 4px; font-size: 0.85rem; color: var(--muted); }
-input[type="text"], textarea {
-  width: 100%; padding: 10px 12px; border-radius: 8px;
-  border: 1px solid #2b3245; background: #10131a; color: var(--text);
-  font: inherit; resize: vertical;
+
+.card h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  color: var(--primary);
 }
-input:focus, textarea:focus { outline: 2px solid var(--accent); border-color: transparent; }
-button {
-  margin-top: 16px; padding: 10px 22px; border: 0; border-radius: 8px;
-  background: var(--accent); color: #fff; font: inherit; font-weight: 600; cursor: pointer;
+
+.hint {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
 }
-button:disabled { opacity: 0.55; cursor: wait; }
-.status { margin-top: 14px; color: var(--muted); font-size: 0.9rem; }
+
+/* File Upload */
+#upload-btn {
+  margin-bottom: 12px;
+}
+
+.file-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.file-item {
+  background: var(--secondary);
+  padding: 6px 10px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+.file-item .remove {
+  cursor: pointer;
+  color: var(--accent-red);
+  font-weight: bold;
+}
+
+/* Chat Input */
+.chat-input-area {
+  display: flex;
+  gap: 10px;
+}
+.chat-input-area input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+}
+.chat-input-area input:focus {
+  outline: 2px solid var(--primary);
+  border-color: transparent;
+}
+
+/* Status & Errors */
+.status {
+  margin-top: 10px;
+  color: #666;
+  font-style: italic;
+}
+
 .error {
-  margin-top: 14px; padding: 10px 14px; border-radius: 8px;
-  background: #2c1a19; border: 1px solid #5a2c29; color: var(--error); font-size: 0.9rem;
+  margin-top: 10px;
+  padding: 10px;
+  background: #fed7d7;
+  color: #c53030;
+  border-radius: var(--radius);
+  border: 1px solid #feb2b2;
 }
-#result-wrap h3 { margin: 18px 0 6px; font-size: 0.95rem; }
-pre#result {
-  background: #10131a; border: 1px solid #2b3245; border-radius: 8px;
-  padding: 14px; white-space: pre-wrap; word-wrap: break-word; margin: 0;
+
+/* Results */
+.result-card {
+  animation: fadeIn 0.5s ease;
 }
-.meta { color: var(--muted); font-size: 0.78rem; }
-.foot { margin-top: 28px; color: var(--muted); font-size: 0.85rem; text-align: center; }
-.foot a { color: var(--accent); }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.user-question {
+  font-size: 1.1rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+  padding: 10px;
+  background: var(--secondary);
+  border-radius: var(--radius);
+}
+
+.result-section {
+  margin-bottom: 24px;
+}
+
+.result-section h3 {
+  margin: 0 0 8px 0;
+  font-size: 1rem;
+  color: var(--primary);
+}
+
+.code-block {
+  position: relative;
+  background: #f5f5f5;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: auto;
+}
+.code-block pre {
+  margin: 0;
+  padding: 14px;
+  padding-right: 50px; /* space for copy button */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.sql {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.9rem;
+}
+
+/* Syntax highlighting */
+.sql .keyword { color: #0000ff; font-weight: bold; }
+.sql .string { color: #008000; }
+.sql .comment { color: #808080; }
+
+.reasoning {
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+#chart-container {
+  width: 100%;
+  height: 500px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+/* Table */
+.table-wrapper {
+  max-height: 400px;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.data-table th,
+.data-table td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.data-table th {
+  position: sticky;
+  top: 0;
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+}
+.data-table tr:nth-child(even) {
+  background: #f9f9f9;
+}
+.data-table tr:hover {
+  background: #f0f0f0;
+}
+
+.note {
+  font-size: 0.85rem;
+  color: #666;
+  font-style: italic;
+}
+
+/* Meta tags */
+#meta-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+.meta-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.meta-badge.cached {
+  background: var(--accent-green);
+  color: white;
+}
+.meta-badge.confidence-high {
+  background: var(--accent-green);
+  color: white;
+}
+.meta-badge.confidence-medium {
+  background: #ed8936;
+  color: white;
+}
+.meta-badge.confidence-low {
+  background: var(--accent-red);
+  color: white;
+}
+
+/* Warnings */
+.warnings {
+  margin-top: 12px;
+  padding: 10px;
+  background: #fffaf0;
+  border: 1px solid #fbd38d;
+  border-radius: var(--radius);
+  color: #744210;
+}
+
+/* Footer */
+.foot {
+  margin-top: 24px;
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+}
+.foot a {
+  color: var(--primary);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .chat-input-area {
+    flex-direction: column;
+  }
+  .chat-input-area .btn {
+    width: 100%;
+  }
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .topbar .btn {
+    align-self: flex-end;
+  }
+  #chart-container {
+    height: 300px;
+  }
+  .file-list {
+    flex-direction: column;
+  }
+}

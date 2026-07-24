@@ -3,46 +3,83 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zero-Shot Agent — Transform</title>
+  <title>UP Police Data Analyst</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
-  <main class="shell">
+  <div class="shell">
     <header class="topbar">
-      <h1>Zero-Shot Agent</h1>
-      <span id="provider-badge" class="badge" title="Active LLM provider">…</span>
+      <h1>UP Police Data Analyst</h1>
+      <button id="mssql-connect" class="btn stub" disabled title="MsSQL connection - coming soon">Coming soon</button>
     </header>
 
-    <!-- CAPABILITY SLOT — replace this form with your agent's UI -->
-    <section class="card" id="transform-card">
-      <h2>Transform text</h2>
-      <p class="hint">The baseline capability: give it text and an instruction; it applies the
-        instruction with one real LLM call.</p>
+    <main>
+      <!-- File Upload Section -->
+      <section class="card" id="upload-section">
+        <h2>Data Upload</h2>
+        <p class="hint">Upload one or more CSV files (max 10MB each).</p>
+        <button id="upload-btn" class="btn primary">Upload CSV</button>
+        <input type="file" id="file-input" accept=".csv" multiple hidden />
+        <div id="file-list" class="file-list"></div>
+        <div id="file-error" class="error" hidden></div>
+      </section>
 
-      <label for="instruction">Instruction</label>
-      <input id="instruction" type="text"
-             value="Summarize the text in one short paragraph." />
+      <!-- Chat Section -->
+      <section class="card" id="chat-section">
+        <h2>Ask a Question</h2>
+        <div class="chat-input-area">
+          <input type="text" id="question-input" placeholder="e.g., Show total incidents by district as a bar chart..." autocomplete="off" />
+          <button id="ask-btn" class="btn primary">Ask</button>
+        </div>
+        <div id="status" class="status" hidden></div>
+        <div id="error" class="error" hidden></div>
+      </section>
 
-      <label for="text">Text</label>
-      <textarea id="text" rows="8"
-                placeholder="Paste the text to transform…"></textarea>
+      <!-- Results Section -->
+      <section class="card result-card" id="results-section" hidden>
+        <h2>Analysis Results</h2>
 
-      <button id="run-btn">Run</button>
+        <div id="question-display" class="user-question"></div>
 
-      <div id="status" class="status" hidden></div>
-      <div id="error" class="error" hidden></div>
+        <div class="result-section">
+          <h3>Reasoning</h3>
+          <div id="reasoning" class="reasoning"></div>
+        </div>
 
-      <div id="result-wrap" hidden>
-        <h3>Result</h3>
-        <pre id="result"></pre>
-        <p class="meta" id="result-meta"></p>
-      </div>
-    </section>
+        <div class="result-section">
+          <h3>Generated SQL</h3>
+          <div class="code-block">
+            <button class="btn copy" data-target="sql-code">Copy</button>
+            <pre><code id="sql-code" class="sql"></code></pre>
+          </div>
+        </div>
+
+        <div class="result-section">
+          <h3>Visualization</h3>
+          <div id="chart-container"></div>
+        </div>
+
+        <div class="result-section">
+          <h3>Results <span id="row-count-note" class="note"></span></h3>
+          <div class="table-wrapper">
+            <table id="result-table" class="data-table">
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="meta-tags"></div>
+        <div id="warnings" class="warnings" hidden></div>
+      </section>
+    </main>
 
     <footer class="foot">
       <span>API docs at <a href="/docs">/docs</a> · health at <a href="/health">/health</a></span>
     </footer>
-  </main>
+  </div>
+
   <script src="app.js"></script>
 </body>
 </html>
